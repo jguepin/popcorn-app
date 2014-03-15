@@ -27,7 +27,7 @@ App.loader = function (hasToShow, copy) {
 
 // Show by default
 window.initialLoading = true;
-App.loader(true, i18n.__('loading'));
+App.loader(false, i18n.__('loading'));
 
 
 
@@ -56,7 +56,7 @@ jQuery(function ($) {
   $('.btn-os.close').on('click', function () {
     win.close();
   });
-  
+
   $('.btn-os.fullscreen').on('click', function () {
     win.toggleFullscreen();
     $('.btn-os.fullscreen').toggleClass('active');
@@ -115,7 +115,7 @@ jQuery(function ($) {
         $('#catalog-select ul li.active').removeClass('active');
       }
   });
-  
+
   $('.search i').on('click', function (evt) {
     var term = $.trim($('.search input').val());
 
@@ -201,4 +201,3 @@ jQuery(function ($) {
     selector: "*[data-toggle^='tooltip']"
   });
 });
-

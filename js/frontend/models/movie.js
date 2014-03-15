@@ -1,7 +1,7 @@
 App.Model.Movie = Backbone.Model.extend({
 
     buildBasicView: function () {
-    
+
       var model = this;
 
       // This is mostly used for reporting
@@ -11,7 +11,7 @@ App.Model.Movie = Backbone.Model.extend({
       model.view = new App.View.MovieListItem({
           model: model
       });
-      
+
       model.trigger('rottenloaded');
     },
 
@@ -27,16 +27,12 @@ App.Model.Movie = Backbone.Model.extend({
     setRottenInfo: function () {
         var model = this;
 
-        App.findMovieInfo(model.get('imdb'), function (data) {
-            
-            model.set('infoLoaded', true);
-            model.set('image',    data.image);
-            model.set('bigImage', data.image);
-            model.set('backdrop', data.backdrop);
-            model.set('title',    data.title);
-            model.set('synopsis', data.overview);
-            model.set('voteAverage', data.voteAverage);
-            model.set('runtime', data.runtime);
+        App.findMovieInfo(model.get('yts'), function (data) {
+
+            model.set('synopsis', data.ShortDescription);
+            model.set('runtime', data.MovieRuntime);
+            model.set('bigImage', data.LargeCover);
+            model.set('backdrop', data.MediumScreenshot1);
 
             model.view = new App.View.MovieListItem({
                 model: model
@@ -56,15 +52,14 @@ App.Model.Movie = Backbone.Model.extend({
         }, function (info) {
             model.set('subbtitlesLoaded', true);
             model.set('subtitles', info);
-
             model.trigger('rottenloaded');
         });
     },
 
     initialize: function () {
         this.buildBasicView();
-        //this.setRottenInfo();
-        //this.setSubtitles();
+        this.setRottenInfo();
+        // this.setSubtitles();
         this.calculateTorrentHealth();
     },
 
